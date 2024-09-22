@@ -1,127 +1,85 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.0.3",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
-    "version": "1.0.0"
+    "title": "Anyoutfit API",
+    "version": "1.0.0",
+    "description": "API for generating photorealistic images of human models wearing garments for brand and retail businesses. Enables custom photoshoot creation, for a fraction of the price and time.\n\nRate Limits:\n- 100 requests per minute\n- Requests exceeding the limit will receive a `429 Too Many Requests` error."
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
+      "url": "https://api.anyoutfit.ai"
     }
   ],
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
+    "/api/create_photo_shoot/": {
       "post": {
-        "description": "Creates a new plant in the store",
+        "operationId": "create_photo_shoot_create",
+        "tags": [
+          "create_photo_shoot"
+        ],
         "requestBody": {
-          "description": "Plant to add to the store",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/CreatePhotoShootInputRequest"
               }
+
             }
           },
           "required": true
         },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
+        "security": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "tokenAuth": []
           }
         ],
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
+          "200": {
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/CreatePhotoShootOutput"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
                 }
               }
             }
@@ -132,63 +90,146 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
-        "required": [
-          "name"
+      "CategoryEnum": {
+        "enum": [
+          "top",
+          "bottom",
+          "dresses"
         ],
+        "type": "string",
+        "description": "* `top` - top\n* `bottom` - bottom\n* `dresses` - dresses"
+      },
+      "CreatePhotoShootInputRequest": {
         "type": "object",
         "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
+          "text_prompt": {
+            "type": "string",
+            "description": "Text prompt to guide the photo generation. Required if predefined_model_image_url is not provided."
           },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
+          "predefined_model_image_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of a predefined model image. Required if text_prompt is not provided."
           },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
+          "garment_image_url": {
+            "type": "string",
+            "format": "uri",
+            "minLength": 1,
+            "description": "URL of the garment image to be used in the photo shoot"
+          },
+          "category": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CategoryEnum"
               }
+            ],
+            "description": "Category of the garment. Must be one of: top, bottom, or dresses"
+          }
+        },
+        "required": [
+          "category",
+          "garment_image_url"
+        ]
+      },
+      "CreatePhotoShootOutput": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["success"],
+            "description": "Status of the request"
+          },
+          "garment_description": {
+            "type": "string",
+            "description": "Generated description of the garment"
+          },
+          "model_image_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the generated model image"
+          },
+          "vton_image_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the virtual try-on (VTON) image"
+          }
+        },
+        "required": [
+          "status",
+          "garment_description",
+          "model_image_url",
+          "vton_image_url"
+        ]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["error"],
+            "description": "Status of the request"
+          },
+          "error_message": {
+            "type": "string",
+            "description": "A message explaining the error"
+          }
+        },
+        "required": [
+          "status",
+          "error_message"
+        ]
+      },
+      "BadRequestError": {
+        "allOf": [
+          { "$ref": "#/components/schemas/ErrorResponse" },
+          {
+            "example": {
+              "status": "error",
+              "error_message": "Invalid input: Missing required field 'garment_image_url'"
             }
           }
         ]
       },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
+      "UnauthorizedError": {
+        "allOf": [
+          { "$ref": "#/components/schemas/ErrorResponse" },
+          {
+            "example": {
+              "status": "error",
+              "error_message": "Authentication failed: Invalid or missing token"
+            }
           }
-        }
+        ]
+      },
+      "TooManyRequestsError": {
+        "allOf": [
+          { "$ref": "#/components/schemas/ErrorResponse" },
+          {
+            "example": {
+              "status": "error",
+              "error_message": "Rate limit exceeded: Please try again later"
+            }
+          }
+        ]
+      },
+      "InternalServerError": {
+        "allOf": [
+          { "$ref": "#/components/schemas/ErrorResponse" },
+          {
+            "example": {
+              "status": "error",
+              "error_message": "An unexpected error occurred. Please try again later or contact support."
+            }
+          }
+        ]
       }
     },
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+      "tokenAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "Token-based authentication with required prefix \"Token\""
       }
     }
   }

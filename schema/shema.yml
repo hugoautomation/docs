@@ -1,0 +1,116 @@
+openapi: 3.0.3
+info:
+  title: Anyoutfit API
+  version: 1.0.0
+  description: API for generating photorealistic images of human models wearing garments
+    for brand and retail businesses. Enables custom photoshoot creation, for a fraction
+    of the price and time.
+paths:
+  https://api.anyoutfit.ai/api/create_photo_shoot/:
+    post:
+      operationId: create_photo_shoot_create
+      tags:
+      - create_photo_shoot
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePhotoShootInputRequest'
+            examples:
+              ValidInputWithTextPrompt:
+                value:
+                  text_prompt: A professional model wearing a blue shirt
+                  garment_image_url: https://example.com/blue_shirt.jpg
+                  category: top
+                summary: Input using text prompt
+                description: This example shows input with a text prompt
+              ValidInputWithPredefinedModel:
+                value:
+                  predefined_model_image_url: https://example.com/model.jpg
+                  garment_image_url: https://example.com/blue_shirt.jpg
+                  category: top
+                summary: Input using predefined model image
+                description: This example shows input with a predefined model image
+                  URL
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreatePhotoShootInputRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreatePhotoShootInputRequest'
+        required: true
+      security:
+      - tokenAuth: []
+      - Token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePhotoShootOutput'
+          description: ''
+components:
+  schemas:
+    CategoryEnum:
+      enum:
+      - top
+      - bottom
+      - dresses
+      type: string
+      description: |-
+        * `top` - top
+        * `bottom` - bottom
+        * `dresses` - dresses
+    CreatePhotoShootInputRequest:
+      type: object
+      properties:
+        text_prompt:
+          type: string
+          description: Text prompt to guide the photo generation. Required if predefined_model_image_url
+            is not provided.
+        predefined_model_image_url:
+          type: string
+          format: uri
+          description: URL of a predefined model image. Required if text_prompt is
+            not provided.
+        garment_image_url:
+          type: string
+          format: uri
+          minLength: 1
+          description: URL of the garment image to be used in the photo shoot
+        category:
+          allOf:
+          - $ref: '#/components/schemas/CategoryEnum'
+          description: |-
+            Category of the garment. Must be one of: top, bottom, or dresses
+
+            * `top` - top
+            * `bottom` - bottom
+            * `dresses` - dresses
+      required:
+      - category
+      - garment_image_url
+    CreatePhotoShootOutput:
+      type: object
+      properties:
+        garment_description:
+          type: string
+          description: Generated description of the garment
+        model_image_url:
+          type: string
+          format: uri
+          description: URL of the generated model image
+        vton_image_url:
+          type: string
+          format: uri
+          description: URL of the virtual try-on (VTON) image
+      required:
+      - garment_description
+      - model_image_url
+      - vton_image_url
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
