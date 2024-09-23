@@ -153,13 +153,7 @@
             "format": "uri",
             "description": "URL of the virtual try-on (VTON) image"
           }
-        },
-        "required": [
-          "status",
-          "garment_description",
-          "model_image_url",
-          "vton_image_url"
-        ]
+        }
       },
       "ErrorResponse": {
         "type": "object",
