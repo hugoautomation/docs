@@ -115,7 +115,7 @@
             "type": "string",
             "format": "uri",
             "minLength": 1,
-            "description": "URL of the garment image to be used in the photo shoot"
+            "description": "URL of the garment image to be used in the photo shoot."
           },
           "category": {
             "allOf": [
@@ -123,7 +123,7 @@
                 "$ref": "#/components/schemas/CategoryEnum"
               }
             ],
-            "description": "Category of the garment. Must be one of: top, bottom, or dresses"
+            "description": "Category of the garment. Must be one of: top, bottom, or dresses."
           }
         },
         "required": [
@@ -146,7 +146,7 @@
           "model_image_url": {
             "type": "string",
             "format": "uri",
-            "description": "URL of the generated model image"
+            "description": "URL of the model image (generated or not)"
           },
           "vton_image_url": {
             "type": "string",
