@@ -12,7 +12,7 @@ headers = {
   "content-type": "application/json"
 }
 ```
-### body without model (you can use 'payload=...' instead of 'body=...')
+### body without model (you can use 'payload = {...}' instead of 'body = {...}'):
 In that case, anyoutfit will first generate a human model according to your description in the text prompt then create a photoshoot:
 ```json
 body = {
@@ -22,7 +22,7 @@ body = {
   "model_image_url": "",
 }
 ```
-### body with model
+### body with model (you can use 'payload=...' instead of 'body=...'):
 In that case, anyoutfit will use your model to create a photoshoot:
 ```json
 body = {

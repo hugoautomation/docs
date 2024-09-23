@@ -109,13 +109,13 @@
           "model_image_url": {
             "type": "string",
             "format": "uri",
-            "description": "URL of a predefined model image. Required if text_prompt is not provided."
+            "description": "URL of a your own model image. A 4:3 aspect ratio provides better result. Only jpg or png images. Required if text_prompt is not provided."
           },
           "garment_image_url": {
             "type": "string",
             "format": "uri",
             "minLength": 1,
-            "description": "URL of the garment image to be used in the photo shoot."
+            "description": "URL of the garment image to be used in the photo shoot. A 4:3 aspect ratio provides better result. Only jpg or png images."
           },
           "category": {
             "allOf": [
