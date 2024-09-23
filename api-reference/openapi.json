@@ -151,7 +151,7 @@
           "vton_image_url": {
             "type": "string",
             "format": "uri",
-            "description": "URL of the virtual try-on (VTON) image"
+            "description": "URL of the generated virtual try-on (VTON) image"
           }
         }
       },
