@@ -134,6 +134,11 @@
       "CreatePhotoShootOutput": {
         "type": "object",
         "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["success","error"],
+            "description": "Status of the request"
+          },
           "garment_description": {
             "type": "string",
             "description": "Generated description of the garment"
