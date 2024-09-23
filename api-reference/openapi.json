@@ -104,9 +104,9 @@
         "properties": {
           "text_prompt": {
             "type": "string",
-            "description": "Text prompt to guide the photo generation. Required if predefined_model_image_url is not provided."
+            "description": "Text prompt to guide the photo generation. Required if model_image_url is not provided."
           },
-          "predefined_model_image_url": {
+          "model_image_url": {
             "type": "string",
             "format": "uri",
             "description": "URL of a predefined model image. Required if text_prompt is not provided."
