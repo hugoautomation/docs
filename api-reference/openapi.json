@@ -136,7 +136,7 @@
         "properties": {
           "status": {
             "type": "string",
-            "enum": ["success"],
+            "enum": ["success","error"],
             "description": "Status of the request"
           },
           "garment_description": {
@@ -223,7 +223,7 @@
         "type": "apiKey",
         "in": "header",
         "name": "Authorization",
-        "description": "Token-based authentication with required prefix \"Token\""
+        "description": "Token-based authentication with required prefix \"Token\" as previously explained."
       }
     }
   }
