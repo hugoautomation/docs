@@ -45,6 +45,12 @@
       ]
     },
     {
+      "group": "Headers and bodies",
+      "pages": [
+        "headerbody"
+      ]
+    },
+    {
       "group": "Examples",
       "pages": [
         "examples"
