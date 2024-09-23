@@ -3,7 +3,7 @@ title: 'Headers and bodies'
 ---
 
 When you have your API token, it remains to call our API endpoint 'https://api.anyoutfit.ai//api/create_photo_shoot/' via a **POST** request with :
-### header (using your token):
+### headers (using your token):
 
 ```json
 headers = {
@@ -13,7 +13,7 @@ headers = {
 }
 ```
 ### body without model
-In that case, anyoutfit will first generate a human model according to your description in the text prompt to create a photoshoot:
+In that case, anyoutfit will first generate a human model according to your description in the text prompt then create a photoshoot:
 ```json
 body = {
   "text_prompt": "A young asian woman in a busy street",

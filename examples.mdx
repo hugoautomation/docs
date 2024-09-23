@@ -1,7 +1,6 @@
 ---
 title: 'Examples'
 ---
-
 CURL Request (use your token):
 
 ```json
@@ -16,6 +15,33 @@ curl --request POST \
   "garment_image_url": "https://dictionary.cambridge.org/us/images/thumb/Tshirt_noun_001_18267_2.jpg",
   "category": "top"
 }'
+```
+
+Response
+```json
+{
+  "garment_description":"This is a light blue cotton t-shirt featuring a small red Levi's logo on the chest.","model_image_url":"http://res.cloudinary.com/dazh9i1no/image/upload/v1727093933/user_2_images/cyog6gpheqc749xwzx8t.jpg",
+  "vton_image_url":"https://res.cloudinary.com/dazh9i1no/image/upload/c_fill,e_gen_restore,h_2048,w_1528/v1727094013/user_2_images/u8bboakiw0spjaxcvhwq.jpg"
+  }
+```
+
+Python Request (use your token):
+```json
+import requests
+
+url="https://api.anyoutfit.ai/api/create_photo_shoot/"
+headers = {
+    "Authorization": "Token AjjhfI30884KNNsuu40975N",
+    "accept": "application/json",
+    "content-type": "application/json",
+}
+body = {
+    "text_prompt": "a spanish woman in a busy street",
+    "model_image_url": "",
+    "garment_image_url": "https://dictionary.cambridge.org/us/images/thumb/Tshirt_noun_001_18267_2.jpg",
+    "category": "top"
+}
+response = requests.post(url, headers=headers, json=body)
 ```
 
 Response
