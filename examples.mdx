@@ -1,7 +1,7 @@
 ---
 title: 'Examples'
 ---
-CURL Request (use your token):
+CURL Request (use your own token):
 
 ```json
 curl --request POST \
@@ -20,12 +20,12 @@ curl --request POST \
 Response
 ```json
 {
-  "garment_description": "This is a light blue cotton t-shirt featuring a Levi's logo on the chest.","model_image_url": "https://example.com/generated_model.jpg",
+  "garment_description": "This is a light blue cotton t-shirt featuring a Levi logo on the chest.","model_image_url": "https://example.com/generated_model.jpg",
   "vton_image_url": "https://example.com/vton_model_image.jpg"
 }
 ```
 
-Python Request (use your token):
+Python Request (use your own token):
 ```json
 import requests
 
@@ -48,7 +48,7 @@ print(response.text)
 Response
 ```json
 {
-  "garment_description": "This is a light blue cotton t-shirt featuring a small red Levi's logo on the chest.","model_image_url": "https://example.com/generated_model.jpg",
+  "garment_description": "This is a light blue cotton t-shirt featuring a small red Levi logo on the chest.","model_image_url": "https://example.com/generated_model.jpg",
   "vton_image_url": "https://example.com/vton_model_image.jpg"
   }
 ```

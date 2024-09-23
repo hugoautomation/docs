@@ -55,6 +55,12 @@
       "pages": [
         "examples"
       ]
+    },
+    {
+      "group": "Full description",
+      "pages": [
+        "endpoint/create"
+      ]
     }
   ]
 }
