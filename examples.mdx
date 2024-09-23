@@ -20,10 +20,9 @@ curl --request POST \
 Response
 ```json
 {
-  "garment_description":"This is a light blue cotton t-shirt featuring a small red Levi's logo on the chest.","model_image_url":"http://res.cloudinary.com/dazh9i1no/image/upload/v1727093933/user_2_images/cyog6gpheqc749xwzx8t.jpg",
-
-  "vton_image_url":"https://res.cloudinary.com/dazh9i1no/image/upload/c_fill,e_gen_restore,h_2048,w_1528/v1727094013/user_2_images/u8bboakiw0spjaxcvhwq.jpg"
-  }
+  "garment_description":"This is a light blue cotton t-shirt featuring a Levi's logo on the chest.","model_image_url":"https://example.com/generated_model.jpg",
+  "vton_image_url":"https://example.com/vton_model_image.jpg"
+}
 ```
 
 Python Request (use your token):
@@ -49,7 +48,6 @@ print(response.text)
 Response
 ```json
 {
-  "garment_description":"This is a light blue cotton t-shirt featuring a small red Levi's logo on the chest.","model_image_url":"http://res.cloudinary.com/dazh9i1no/image/upload/v1727093933/user_2_images/cyog6gpheqc749xwzx8t.jpg",
-
-  "vton_image_url":"https://res.cloudinary.com/dazh9i1no/image/upload/c_fill,e_gen_restore,h_2048,w_1528/v1727094013/user_2_images/u8bboakiw0spjaxcvhwq.jpg"
+  "garment_description":"This is a light blue cotton t-shirt featuring a small red Levi's logo on the chest.","model_image_url":"https://example.com/generated_model.jpg",
+  "vton_image_url":"https://example.com/vton_model_image.jpg"
   }
