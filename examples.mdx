@@ -3,9 +3,7 @@ title: 'Complete code examples'
 ---
 
 When you have your API token, it remains to call our API endpoint 'https://api.anyoutfit.ai//api/create_photo_shoot/' via a POST request with :
-
-### header:
-
+### header (using your token):
 
 ```json
 headers = {
@@ -14,14 +12,23 @@ headers = {
   "content-type": "application/json"
 }
 ```
-
-### body without model: anyoutfit will generate a human model according to your description in the text prompt
-
+### body without model
+In that case, anyoutfit will generate a human model according to your description in the text prompt
 ```json
 payload = {
   "text_prompt": "A young asian woman wearing a blue shirt",
   "garment_image_url": "https://example.com/blue_shirt.jpg",
   "category": "top",
   "model_image_url": "",
+}
+```
+### body with model
+In that case, anyoutfit will generate a human model according to your description in the text prompt
+```json
+payload = {
+  "text_prompt": "",
+  "garment_image_url": "https://example.com/blue_shirt.jpg",
+  "category": "top",
+  "model_image_url": "https://example.com/model.jpg",
 }
 ```
