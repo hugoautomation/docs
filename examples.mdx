@@ -1,0 +1,37 @@
+---
+title: 'Complete code examples'
+---
+
+
+## Authentication
+
+All API endpoints are authenticated using Token authentication. You must include an API token in the `Authorization` header for all requests.
+
+### To Get Your Token
+
+1. Log in to your [dashboard](https://api.anyoutfit.ai)
+2. Navigate to the "Access Token" section
+3. Generate a new token
+
+### To Use Your Token
+
+Include your token in the `Authorization` header of your API requests as follows:
+
+```json
+headers = {
+  "Authorization": "Token YOUR_API_TOKEN",
+  "accept": "application/json",
+  "content-type": "application/json"
+}
+```
+
+Replace `YOUR_API_TOKEN` with the actual token you have generated. If your generated token is 'AjjhfI30884KNNsuu40975N',
+your header becomes:
+
+```json
+headers = {
+  "Authorization": "Token AjjhfI30884KNNsuu40975N",
+  "accept": "application/json",
+  "content-type": "application/json"
+}
+```
